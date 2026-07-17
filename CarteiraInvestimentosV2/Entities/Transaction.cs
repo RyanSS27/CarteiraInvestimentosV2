@@ -16,3 +16,27 @@ public class Transaction
 
 
 
+    // somar as vendas
+    /*
+     LÓGICA DAS VENDAS
+        para saber o total de valor investido em uma ação, eu devo:
+        1° varrer as transações
+        2° somar as compras com base no ticker
+        3° somar as vendas
+        
+        após, eu devo:
+        
+        4° assionar a função de venda do asset, atualizando apenas a sua quantidade,
+        extraindo a mesma e calculando quantidade x averegePrice = amountInvested
+        5° o valor médio gasto por ação não é alterado na entidade asset (seu averagePrice)
+            com base na compra, mantendo o valor original da compra
+        Por estar sem conexão com a Brapi, o fluxo será:
+            (tenho intenção de deixar em aberto o try que verifica se a conexão funcionou para
+            implementação futura) 
+        
+            6° como (por enquanto) não tenho a conexão com a brapi, será atribuido ao 
+                preçoAtualMercado o valor valorMedioInvestido, zerando o lucroOuPrejuizo e a 
+                porcentagemRetorno. E o valorTotalInvestido é atribuido o amountInvested
+            [Precision(18, 2)] 
+    */
+}
