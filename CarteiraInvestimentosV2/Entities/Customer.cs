@@ -1,11 +1,12 @@
 using System.ComponentModel.DataAnnotations;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace CarteiraInvestimentosV2.Entities;
 
 public class Customer
 {
     public Guid Id { get; private set; } = Guid.NewGuid();
-    [Required]
     public string Name { get; set; }
     public string Email { get; set; }
 

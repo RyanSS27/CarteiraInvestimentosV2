@@ -2,15 +2,15 @@ using CarteiraInvestimentosV2.Entities;
 
 namespace CarteiraInvestimentosV2.Dtos;
 
-public record UserOutDto
+public record CustomerOutDto
 {
     public Guid id { get; set; }
     public string nome { get; set; }
     public string email { get; set; }
 
-    public UserOutDto() {}
+    public CustomerOutDto() {}
     
-    public UserOutDto(Customer customer)
+    public CustomerOutDto(Customer customer)
     {
             id = customer.Id;
             nome = customer.Name;
