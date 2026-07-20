@@ -9,6 +9,7 @@ public class Customer
     public Guid Id { get; private set; } = Guid.NewGuid();
     public string Name { get; set; }
     public string Email { get; set; }
+    public bool IsActive { get; private set; } = true;
 
     private readonly List<Asset> _assets = new(); // sem permissão a se alterar a lista original
     
@@ -31,5 +32,11 @@ public class Customer
     {
         Transactions.Add(transaction);
         // implementar futuramente a lógica
+    }
+
+    public void InactivateAccount()
+    {
+        // Tratar as condições para inativação 
+        IsActive = false;
     }
 }

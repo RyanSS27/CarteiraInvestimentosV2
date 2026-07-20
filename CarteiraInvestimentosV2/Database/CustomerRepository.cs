@@ -8,39 +8,38 @@ namespace CarteiraInvestimentosV2.Database;
 public class CustomerRepository : ICustomerRepository
 {
     public readonly IMongoCollection<Customer> _customersCollection;
-        
+
     public CustomerRepository(IMongoClient mongoClient, IConfiguration configuration)
     {
         var databaseName = configuration.GetValue<string>("CarteiraInvestimentosAPI:DatabaseName");
         var collectionName = configuration.GetValue<string>("CarteiraInvestimentosAPI:CustomerCollectionName");
-        
+
         var database = mongoClient.GetDatabase(databaseName);
-        
+
         _customersCollection = database.GetCollection<Customer>(collectionName);
     }
 
-    public Task<List<Customer>> ListCustomersAsync()
+    public async Task<List<CustomerSummary>> ListCustomerSummariesAsync()
     {
-        throw new NotImplementedException();
+        return await _customersCollection
+            .Find(_ => true) // Retorna todos
+            .SortByDescending(c => c.IsActive) 
+            .Project(c => new CustomerSummary(c.Id, c.Name, c.IsActive)) // Limita os dados tragos 
+            .ToListAsync();
     }
 
-    public Task AddCustomerAsync(Customer customer)
+    public async Task AddCustomerAsync(Customer customer)
     {
-        throw new NotImplementedException();
+        await _customersCollection.InsertOneAsync(customer);
     }
 
-    public Task<Customer?> GetCustomerAsync(Guid customerId)
+    public async Task<Customer?> GetCustomerAsync(Guid customerId)
     {
-        throw new NotImplementedException();
+        return await _customersCollection.Find(c => c.Id == customerId).FirstOrDefaultAsync();
     }
 
-    public Task UpdateCustomerAsync(Customer customer)
+    public async Task UpdateCustomerAsync(Customer customer)
     {
-        throw new NotImplementedException();
-    }
-
-    public Task DeleteCustomerAsync(Guid customerId)
-    {
-        throw new NotImplementedException();
+        await _customersCollection.ReplaceOneAsync(c => c.Id == customer.Id, customer);
     }
 }
