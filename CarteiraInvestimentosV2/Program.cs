@@ -35,7 +35,6 @@ builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
 
 
 
-
 var app = builder.Build();
 
 
