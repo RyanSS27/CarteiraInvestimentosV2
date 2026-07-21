@@ -9,12 +9,10 @@ public class CustomerService : ICustomerService
 {
     private readonly ICustomerRepository _customerCollection;
 
-    private CustomerService(ICustomerRepository customerRepository)
+    public CustomerService(ICustomerRepository customerRepository)
     {
         _customerCollection = customerRepository;
     }
-    
-    
     
     public async Task<CustomerOutDto> AddCustomerAsync(CustomerInputDto newCustomer)
     {

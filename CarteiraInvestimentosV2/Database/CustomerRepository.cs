@@ -12,7 +12,7 @@ public class CustomerRepository : ICustomerRepository
     public CustomerRepository(IMongoClient mongoClient, IConfiguration configuration)
     {
         var databaseName = configuration.GetValue<string>("CarteiraInvestimentosAPI:DatabaseName");
-        var collectionName = configuration.GetValue<string>("CarteiraInvestimentosAPI:CustomerCollectionName");
+        var collectionName = configuration.GetValue<string>("CarteiraInvestimentosAPI:CustomersCollectionName");
 
         var database = mongoClient.GetDatabase(databaseName);
 

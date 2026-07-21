@@ -4,7 +4,7 @@ namespace CarteiraInvestimentosV2.Dtos;
 
 public record CustomerOutDto
 {
-    public Guid CustomerId { get; set; }
+    public Guid Id { get; set; }
     public string Name { get; set; }
     public string Email { get; set; }
     
@@ -16,7 +16,7 @@ public record CustomerOutDto
     
     public CustomerOutDto(Customer customer)
     {
-            CustomerId = customer.Id;
+            Id = customer.Id;
             Name = customer.Name;
             Email = customer.Email;
         
