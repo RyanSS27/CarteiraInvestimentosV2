@@ -11,5 +11,7 @@ public interface ICustomerService
     public Task<CustomerOutResumeDto> InactiveCustomer(Guid customerId);
     public Task<CustomerOutDto> ActiveCustomer(Guid customerId);
 
+    // Funções utilizadas apenas para testes:
     public Task<List<CustomerOutResumeDto>> ListCustomersAsync();
+    public Task<bool> DeleteCustomerAsync(Guid customerID);
 }

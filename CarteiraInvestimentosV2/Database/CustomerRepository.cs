@@ -42,4 +42,10 @@ public class CustomerRepository : ICustomerRepository
     {
         await _customersCollection.ReplaceOneAsync(c => c.Id == customer.Id, customer);
     }
+
+    public async Task<bool> DeleteCustomerAsync(Guid customerID)
+    {
+        var result = await _customersCollection.DeleteOneAsync(c => c.Id == customerID);
+        return result.DeletedCount > 0;
+    }
 }
