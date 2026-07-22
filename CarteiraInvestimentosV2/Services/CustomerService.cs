@@ -46,8 +46,18 @@ public class CustomerService : ICustomerService
         throw new NotImplementedException();
     }
 
-    public Task<List<CustomerOutResumeDto>> ListCustomersAsync()
+    // Funções utilizadas apenas para testes:
+    public async Task<List<CustomerOutResumeDto>> ListCustomersAsync()
     {
-        throw new NotImplementedException();
+        var customerResume = await _customerCollection.ListCustomerSummariesAsync();
+        
+        return customerResume
+            .Select(c => new CustomerOutResumeDto(c.Id, c.Name, c.IsActive))
+            .ToList();
+    }
+
+    public async Task<bool> DeleteCustomerAsync(Guid customerID)
+    {
+        return await _customerCollection.DeleteCustomerAsync(customerID);
     }
 }

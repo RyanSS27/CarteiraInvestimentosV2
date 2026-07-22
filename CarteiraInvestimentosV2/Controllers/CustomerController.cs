@@ -27,4 +27,21 @@ public class CustomerController(ICustomerService customerService) : ControllerBa
 
         return Ok(customerOutDto);
     }
+
+    [HttpGet]
+    public async Task<IActionResult> ListCustomers()
+    {
+        List<CustomerOutResumeDto> customers = await _customerService.ListCustomersAsync();
+        return Ok(customers);
+    }
+
+    [HttpDelete("{id:guid}")]
+    public async Task<IActionResult> DeleteCustomer(Guid id)
+    {
+        var result = await _customerService.DeleteCustomerAsync(id);
+        if (result)
+            return NoContent();
+
+        return NotFound(new { mensagem = "Cliente de id " + id + " não encontrado." });
+    }
 }
