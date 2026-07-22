@@ -31,17 +31,30 @@ public class CustomerService : ICustomerService
         return new CustomerOutDto(customer);
     }
 
-    public Task<CustomerOutDto> UpdateCustomerInformation(Guid customerId, CustomerInputDto customerInformation)
+    public async Task<CustomerOutDto?> UpdateCustomerInformation(Guid customerId, CustomerInputDto newCustomerData)
     {
-        throw new NotImplementedException();
+        var customer = await _customerCollection.GetCustomerAsync(customerId);
+        if (customer is null)
+            return null;
+
+        customer.Name = newCustomerData.Name;
+        customer.Email = newCustomerData.Email;
+        await _customerCollection.UpdateCustomerAsync(customer);
+        return new CustomerOutDto(customer);
     }
 
-    public Task<CustomerOutResumeDto> InactiveCustomer(Guid customerId)
+    public async Task<CustomerOutResumeDto?> InactivateCustomer(Guid customerId)
     {
-        throw new NotImplementedException();
+        var customer = await _customerCollection.GetCustomerAsync(customerId);
+        if (customer is null)
+            return null;
+        
+        customer.InactivateAccount();
+        await _customerCollection.UpdateCustomerAsync(customer);
+        return new CustomerOutResumeDto(customer);
     }
 
-    public Task<CustomerOutDto> ActiveCustomer(Guid customerId)
+    public async Task<CustomerOutDto?> ActivateCustomer(Guid customerId)
     {
         throw new NotImplementedException();
     }
@@ -56,8 +69,8 @@ public class CustomerService : ICustomerService
             .ToList();
     }
 
-    public async Task<bool> DeleteCustomerAsync(Guid customerID)
+    public async Task<bool> DeleteCustomerAsync(Guid customerId)
     {
-        return await _customerCollection.DeleteCustomerAsync(customerID);
+        return await _customerCollection.DeleteCustomerAsync(customerId);
     }
 }
