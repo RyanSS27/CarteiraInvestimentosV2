@@ -23,10 +23,32 @@ public class CustomerController(ICustomerService customerService) : ControllerBa
     {
         var customerOutDto = await _customerService.GetCustomer(id);
         if (customerOutDto is null)
-            return NotFound(new { mensagem = "Cliente não encontrado"});
+            return NotFound(new { mensagem = $"Cliente de id \"{id}\" não encontrado." });
 
         return Ok(customerOutDto);
     }
+
+    [HttpPut("{id:guid}")]
+    public async Task<IActionResult> UpdateCustomer(Guid id, CustomerInputDto newCustomerData)
+    {
+        var customer = await _customerService.UpdateCustomerInformation(id, newCustomerData);
+        if (customer is null)
+            return NotFound(new { mensagem = $"Cliente de id \"{id}\" não encontrado." });
+
+        return Ok(customer);
+    }
+
+    [HttpPut("/inactivate/{id:guid}")]
+    public async Task<IActionResult> InactivateCustomer(Guid id)
+    {
+        var inactiveCustomer = await _customerService.InactivateCustomer(id);
+        if (inactiveCustomer is null)
+            return NotFound(new {mensagem = "$\"Cliente de id \\\"{id}\\\" não encontrado.\" "});
+
+        return Ok(inactiveCustomer);
+    }
+    
+    // Chamadas utilizadas para testes e debug:
 
     [HttpGet]
     public async Task<IActionResult> ListCustomers()
