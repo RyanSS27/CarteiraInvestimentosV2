@@ -46,4 +46,10 @@ public class Customer
         // Tratar as condições para inativação 
         IsActive = false;
     }
+    
+    public void ActivateAccount()
+    {
+        // Tratar as condições para inativação 
+        IsActive = true;
+    }
 }

@@ -23,7 +23,7 @@ public class CustomerController(ICustomerService customerService) : ControllerBa
     {
         var customerOutDto = await _customerService.GetCustomer(id);
         if (customerOutDto is null)
-            return NotFound(new { mensagem = $"Cliente de id \"{id}\" não encontrado." });
+            return NotFound(new { mensagem = $"Cliente de id '{id}' não encontrado." });
 
         return Ok(customerOutDto);
     }
@@ -33,19 +33,29 @@ public class CustomerController(ICustomerService customerService) : ControllerBa
     {
         var customer = await _customerService.UpdateCustomerInformation(id, newCustomerData);
         if (customer is null)
-            return NotFound(new { mensagem = $"Cliente de id \"{id}\" não encontrado." });
+            return NotFound(new { mensagem = $"Cliente de id '{id}' não encontrado." });
 
         return Ok(customer);
     }
 
-    [HttpPut("/inactivate/{id:guid}")]
+    [HttpPut("inactivate/{id:guid}")]
     public async Task<IActionResult> InactivateCustomer(Guid id)
     {
         var inactiveCustomer = await _customerService.InactivateCustomer(id);
         if (inactiveCustomer is null)
-            return NotFound(new {mensagem = "$\"Cliente de id \\\"{id}\\\" não encontrado.\" "});
+            return NotFound(new { mensagem = $"Cliente de id '{id}' não encontrado." });
 
         return Ok(inactiveCustomer);
+    }
+
+    [HttpPut("activate/{id:guid}")]
+    public async Task<IActionResult> ActivateCustomer(Guid id)
+    {
+        var activeCustomer = await _customerService.ActivateCustomer(id);
+        if (activeCustomer is null)
+            return NotFound(new { mensagem = $"Cliente de id '{id}' não encontrado." });
+
+        return Ok(activeCustomer);
     }
     
     // Chamadas utilizadas para testes e debug:
@@ -64,6 +74,6 @@ public class CustomerController(ICustomerService customerService) : ControllerBa
         if (result)
             return NoContent();
 
-        return NotFound(new { mensagem = "Cliente de id " + id + " não encontrado." });
+        return NotFound(new { mensagem = $"Cliente de id '{id}' não encontrado." });
     }
 }
