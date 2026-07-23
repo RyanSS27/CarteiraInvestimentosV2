@@ -26,8 +26,14 @@ public class Customer
 
     public void AddAsset(Asset asset)
     {
-        _assets.Add(asset);
-        // implementar futuramente a lógica
+        var teste = _assets.Find(a => a.Ticker == asset.Ticker);
+        if (teste is null)
+        {
+            _assets.Add(asset);
+            return;
+        }
+
+        teste.RegisterBuy(asset.Quantity, asset.AveragePrice);
     }
 
     public void SellAsset(Asset asset)
