@@ -1,4 +1,5 @@
 using CarteiraInvestimentosV2.Database;
+using CarteiraInvestimentosV2.Entities;
 
 namespace CarteiraInvestimentosV2.Services;
 
@@ -13,4 +14,21 @@ public class WalletService
         _transactionRepository = transactionRepository;
     }
     
+    
+    
+    
+    // Converte transaction -> transactionOutDto 
+    private TransactionOutDto MapToDto(Transaction transaction)
+    {
+        return new TransactionOutDto(
+            transaction.Id,
+            transaction.CustomerId,
+            transaction.TransactionDate,
+            transaction.TransactionType, 
+            transaction.Quantity,
+            transaction.UnitPrice,
+            transaction.Ticker
+        );
+    }
 }
+

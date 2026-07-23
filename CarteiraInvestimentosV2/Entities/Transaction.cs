@@ -11,7 +11,7 @@ public class Transaction
     
     public TransactionType TransactionType { get; private set; }
     public int Quantity { get; private set; } 
-    public double UnitPrice { get; private set; } // quanto a ação valia no momento
+    public decimal UnitPrice { get; private set; } // quanto a ação valia no momento
     public string Ticker { get; private set; }
 
 
