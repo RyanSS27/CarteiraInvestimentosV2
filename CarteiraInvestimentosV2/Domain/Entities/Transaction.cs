@@ -26,8 +26,8 @@ public class Transaction
         
         após, eu devo:
         
-        4° assionar a função de venda do asset, atualizando apenas a sua quantidade,
-        extraindo a mesma e calculando quantidade x averegePrice = amountInvested
+        4° acionar a função de venda do asset, atualizando apenas a sua quantidade,
+        extraindo a mesma e calculando quantidade x averagePrice = amountInvested
         5° o valor médio gasto por ação não é alterado na entidade asset (seu averagePrice)
             com base na compra, mantendo o valor original da compra
         Por estar sem conexão com a Brapi, o fluxo será:

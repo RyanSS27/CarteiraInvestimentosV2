@@ -21,7 +21,7 @@ public class Asset(string ticker, int quantity, decimal averagePrice)
     public bool RegisterBuy(int quantity, decimal unitPrice)
     {
         if (unitPrice <= 0 || quantity <= 0)
-            return false;
+            return false; // estourar as excessões 
 
         TotalAcquisitionCost += quantity * unitPrice;
         
@@ -33,7 +33,8 @@ public class Asset(string ticker, int quantity, decimal averagePrice)
     public bool RegisterSell(int quantity)
     {
         if (quantity <= 0 || quantity > Quantity)
-            return false;
+            return false; // estourar as excessões 
+
         
         Quantity -= quantity;
         TotalAcquisitionCost = Quantity * AveragePrice;

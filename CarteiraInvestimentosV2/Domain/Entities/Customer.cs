@@ -32,13 +32,14 @@ public class Customer
             _assets.Add(asset);
             return;
         }
-
+        // Penso sobre adicionar uma exception visto que ele retorna bool para confirmar se foi adicionado
         teste.RegisterBuy(asset.Quantity, asset.AveragePrice);
     }
 
     public void SellAsset(Asset asset)
     {
-        // implementar futuramente a lógica
+        var teste = _assets.Find(a => a.Ticker == asset.Ticker);
+        
     }
 
     public void AddTransaction(Transaction transaction)

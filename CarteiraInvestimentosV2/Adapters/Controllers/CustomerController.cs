@@ -1,6 +1,5 @@
 using CarteiraInvestimentosV2.Dtos;
 using CarteiraInvestimentosV2.Services;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarteiraInvestimentosV2.Controllers;
