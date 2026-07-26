@@ -1,30 +1,25 @@
-using CarteiraInvestimentosV2.Database;
+using CarteiraInvestimentosV2.Adapters.Infrastructure.Repositories;
+
+using CarteiraInvestimentosV2.Domain.Entities;
+using CarteiraInvestimentosV2.Domain.Services.Ports;
 using CarteiraInvestimentosV2.Dtos;
-using CarteiraInvestimentosV2.Entities;
-using MongoDB.Driver;
+using CarteiraInvestimentosV2.Dtos.CustomersDtos;
 
-namespace CarteiraInvestimentosV2.Services;
+namespace CarteiraInvestimentosV2.Domain.Services;
 
-public class CustomerService : ICustomerService
+public class CustomerService(ICustomerRepository customerRepository) : ICustomerService
 {
-    private readonly ICustomerRepository _customerRepository;
-
-    public CustomerService(ICustomerRepository customerRepository)
-    {
-        _customerRepository = customerRepository;
-    }
-    
     public async Task<CustomerOutDto> AddCustomerAsync(CustomerInputDto newCustomer)
     {
         var customer = new Customer(newCustomer.Name, newCustomer.Email);
-        await _customerRepository.AddCustomerAsync(customer);
+        await customerRepository.AddCustomerAsync(customer);
 
         return new CustomerOutDto(customer);
     }
 
     public async Task<CustomerOutDto?> GetCustomer(Guid customerId)
     {
-        var customer = await _customerRepository.GetCustomerAsync(customerId);
+        var customer = await customerRepository.GetCustomerAsync(customerId);
         if (customer is null)
             return null;
         
@@ -33,36 +28,36 @@ public class CustomerService : ICustomerService
 
     public async Task<CustomerOutDto?> UpdateCustomerInformation(Guid customerId, CustomerInputDto newCustomerData)
     {
-        var customer = await _customerRepository.GetCustomerAsync(customerId);
+        var customer = await customerRepository.GetCustomerAsync(customerId);
         if (customer is null)
             return null;
 
         customer.Name = newCustomerData.Name;
         customer.Email = newCustomerData.Email;
-        await _customerRepository.UpdateCustomerAsync(customer);
+        await customerRepository.UpdateCustomerAsync(customer);
         return new CustomerOutDto(customer);
     }
 
     public async Task<CustomerOutResumeDto?> InactivateCustomer(Guid customerId)
     {
-        var customer = await _customerRepository.GetCustomerAsync(customerId);
+        var customer = await customerRepository.GetCustomerAsync(customerId);
         if (customer is null)
             return null;
         
         customer.InactivateAccount();
-        await _customerRepository.UpdateCustomerAsync(customer);
+        await customerRepository.UpdateCustomerAsync(customer);
         
         return new CustomerOutResumeDto(customer);
     }
 
     public async Task<CustomerOutDto?> ActivateCustomer(Guid customerId)
     {
-        var customer = await _customerRepository.GetCustomerAsync(customerId);
+        var customer = await customerRepository.GetCustomerAsync(customerId);
         if (customer is null)
             return null;
 
         customer.ActivateAccount();
-        await _customerRepository.UpdateCustomerAsync(customer);
+        await customerRepository.UpdateCustomerAsync(customer);
 
         return new CustomerOutDto(customer);
     }
@@ -70,7 +65,7 @@ public class CustomerService : ICustomerService
     // Funções utilizadas apenas para testes:
     public async Task<List<CustomerOutResumeDto>> ListCustomersAsync()
     {
-        var customerResume = await _customerRepository.ListCustomerSummariesAsync();
+        var customerResume = await customerRepository.ListCustomerSummariesAsync();
         
         return customerResume
             .Select(c => new CustomerOutResumeDto(c.Id, c.Name, c.IsActive))
@@ -79,6 +74,6 @@ public class CustomerService : ICustomerService
 
     public async Task<bool> DeleteCustomerAsync(Guid customerId)
     {
-        return await _customerRepository.DeleteCustomerAsync(customerId);
+        return await customerRepository.DeleteCustomerAsync(customerId);
     }
 }

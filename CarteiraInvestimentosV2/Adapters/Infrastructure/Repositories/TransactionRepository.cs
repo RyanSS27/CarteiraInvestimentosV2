@@ -1,3 +1,4 @@
+using CarteiraInvestimentosV2.Domain.Entities;
 using CarteiraInvestimentosV2.Entities;
 using CarteiraInvestimentosV2.Entities.Enums;
 using MongoDB.Driver;

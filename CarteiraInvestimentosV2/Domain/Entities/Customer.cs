@@ -2,50 +2,34 @@ using System.ComponentModel.DataAnnotations;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace CarteiraInvestimentosV2.Entities;
+namespace CarteiraInvestimentosV2.Domain.Entities;
 
-public class Customer
+public class Customer(string name, string email)
 {
     public Guid Id { get; private set; } = Guid.NewGuid();
-    public string Name { get; set; }
-    public string? Email { get; set; }
+    public string Name { get; set; } = name;
+    public string? Email { get; set; } = email;
     public bool IsActive { get; private set; } = true;
 
-    private readonly List<Asset> _assets = new(); // sem permissão a se alterar a lista original
+    private readonly List<Domain.Entities.Asset> _assets = new(); // sem permissão a se alterar a lista original
     
-    public IReadOnlyCollection<Asset> Assets => _assets.AsReadOnly(); // lista inalterável pública
-    
-    private readonly List<Transaction> _transactions = new();
-    private IReadOnlyCollection<Transaction> Transactions => _transactions;
+    public IReadOnlyCollection<Domain.Entities.Asset> Assets => _assets.AsReadOnly(); // lista inalterável pública
 
-    public Customer (string name, string email)
+    public void AddAsset(Domain.Entities.Asset asset)
     {
-        Name = name;
-        Email = email;
-    }
-
-    public void AddAsset(Asset asset)
-    {
-        var teste = _assets.Find(a => a.Ticker == asset.Ticker);
-        if (teste is null)
+        var existingAsset = _assets.Find(a => a.Ticker == asset.Ticker);
+        if (existingAsset is null)
         {
             _assets.Add(asset);
             return;
         }
-        // Penso sobre adicionar uma exception visto que ele retorna bool para confirmar se foi adicionado
-        teste.RegisterBuy(asset.Quantity, asset.AveragePrice);
+        existingAsset.RegisterBuy(asset.Quantity, asset.AveragePrice);
     }
 
-    public void SellAsset(Asset asset)
+    public void SellAsset(Domain.Entities.Asset asset)
     {
         var teste = _assets.Find(a => a.Ticker == asset.Ticker);
         
-    }
-
-    public void AddTransaction(Transaction transaction)
-    {
-        _transactions.Add(transaction);
-        // implementar futuramente a lógica
     }
 
     public void InactivateAccount()

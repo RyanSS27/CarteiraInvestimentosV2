@@ -1,6 +1,6 @@
-using CarteiraInvestimentosV2.Entities;
+using CarteiraInvestimentosV2.Domain.Entities;
 
-namespace CarteiraInvestimentosV2.Dtos;
+namespace CarteiraInvestimentosV2.Dtos.CustomersDtos;
 
 public record CustomerOutResumeDto
 {

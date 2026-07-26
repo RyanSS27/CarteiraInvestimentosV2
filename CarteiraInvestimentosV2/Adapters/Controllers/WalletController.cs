@@ -1,8 +1,8 @@
+using CarteiraInvestimentosV2.Domain.Services.Ports;
 using CarteiraInvestimentosV2.Entities.Enums;
-using CarteiraInvestimentosV2.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CarteiraInvestimentosV2.Controllers;
+namespace CarteiraInvestimentosV2.Adapters.Controllers;
 
 [Route("api/wallet")]
 [ApiController]

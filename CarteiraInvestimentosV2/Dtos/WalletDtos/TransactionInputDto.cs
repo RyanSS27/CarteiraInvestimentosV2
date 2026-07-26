@@ -14,6 +14,7 @@ public record TransactionInputDto(
     [Required(ErrorMessage = "O preço unitário é obrigatório.")]
     [Range(0.01, double.MaxValue, ErrorMessage = "O preço unitário deve ser maior que zero.")]
     decimal UnitPrice,
+    
     [Required(ErrorMessage = "O tipo da transação é obrigatório. Valores válidos: 'BUY' / 'SELL'.")]
     TransactionType TransactionType
     );

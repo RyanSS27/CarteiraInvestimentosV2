@@ -1,42 +1,42 @@
-using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.RegularExpressions;
+using CarteiraInvestimentosV2.Domain.Exceptions;
 using CarteiraInvestimentosV2.Entities.Enums;
 
-namespace CarteiraInvestimentosV2.Entities;
+namespace CarteiraInvestimentosV2.Domain.Entities;
 
-public class Transaction
+public partial class Transaction
 {
     public Guid Id { get; private set; } = Guid.NewGuid();
     public Guid CustomerId { get; private set; }
-    public DateTime TransactionDate { get; private set; }
-    
+    public DateTime TransactionDate { get; private set; } = DateTime.UtcNow;
+
     public TransactionType TransactionType { get; private set; }
-    public int Quantity { get; private set; } 
+    public int Quantity { get; private set; }
     public decimal UnitPrice { get; private set; } // quanto a ação valia no momento
     public string Ticker { get; private set; }
+    
+    public Transaction(
+        Guid customerId,
+        TransactionType transactionType,
+        int quantity,
+        decimal unitPrice,
+        string ticker)
+    {
+        if (quantity <= 0)
+            throw new ArgumentException("A quantidade de cotas deve ser maior que zero.");
 
-
-
-    // somar as vendas
-    /*
-     LÓGICA DAS VENDAS
-        para saber o total de valor investido em uma ação, eu devo:
-        1° varrer as transações
-        2° somar as compras com base no ticker
-        3° somar as vendas
+        if (unitPrice <= 0)
+            throw new ArgumentException("O preço unitário de compra deve ser maior que zero.");
         
-        após, eu devo:
+        if (string.IsNullOrWhiteSpace(ticker) || !MyRegex().IsMatch(ticker))
+            throw new ArgumentException("O Ticker informado é inválido. Padrão esperado: 4 letras seguidas de 1 ou 2 números.");
         
-        4° acionar a função de venda do asset, atualizando apenas a sua quantidade,
-        extraindo a mesma e calculando quantidade x averagePrice = amountInvested
-        5° o valor médio gasto por ação não é alterado na entidade asset (seu averagePrice)
-            com base na compra, mantendo o valor original da compra
-        Por estar sem conexão com a Brapi, o fluxo será:
-            (tenho intenção de deixar em aberto o try que verifica se a conexão funcionou para
-            implementação futura) 
-        
-            6° como (por enquanto) não tenho a conexão com a brapi, será atribuido ao 
-                preçoAtualMercado o valor valorMedioInvestido, zerando o lucroOuPrejuizo e a 
-                porcentagemRetorno. E o valorTotalInvestido é atribuido o amountInvested
-            [Precision(18, 2)] 
-    */
+        TransactionType = transactionType;
+        Quantity = quantity;
+        UnitPrice = unitPrice;
+        Ticker = ticker.Trim().ToUpper();
+    }
+    
+    [GeneratedRegex(@"^[a-zA-Z]{4}\d{1,2}$")]
+    private static partial Regex MyRegex();
 }

@@ -1,9 +1,9 @@
-using System.Data.Common;
-using System.Runtime.InteropServices.Marshalling;
+using CarteiraInvestimentosV2.Database;
+using CarteiraInvestimentosV2.Domain.Entities;
 using CarteiraInvestimentosV2.Entities;
 using MongoDB.Driver;
 
-namespace CarteiraInvestimentosV2.Database;
+namespace CarteiraInvestimentosV2.Adapters.Infrastructure.Repositories;
 
 public class CustomerRepository : ICustomerRepository
 {

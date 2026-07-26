@@ -1,7 +1,7 @@
-using CarteiraInvestimentosV2.Dtos;
+using CarteiraInvestimentosV2.Domain.Entities;
 using CarteiraInvestimentosV2.Entities;
 
-namespace CarteiraInvestimentosV2.Database;
+namespace CarteiraInvestimentosV2.Adapters.Infrastructure.Repositories;
 
 public interface ICustomerRepository
 {
