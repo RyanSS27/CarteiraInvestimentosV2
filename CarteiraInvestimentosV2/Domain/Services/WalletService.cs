@@ -11,7 +11,7 @@ namespace CarteiraInvestimentosV2.Domain.Services;
 public class WalletService(ICustomerRepository customerRepository, ITransactionRepository transactionRepository)
     : IWalletService
 {
-    private readonly int _limitPerRequest = 25;
+    private const int LimitPerRequest = 25;
 
     public async Task<List<TransactionOutDto>> ListCustomerTransactionAsync(Guid customerId, int limit)
     {
@@ -19,8 +19,8 @@ public class WalletService(ICustomerRepository customerRepository, ITransactionR
         if (customer is null)
             throw new NotFoundException($"Cliente de id '{customerId}' não encontrado");
         
-        if (limit > _limitPerRequest || limit <= 0)
-            limit = _limitPerRequest;
+        if (limit > LimitPerRequest || limit <= 0)
+            limit = LimitPerRequest;
         
         var transaction = await transactionRepository.ListTransactionsAsync(customerId, limit);
         return transaction
@@ -31,33 +31,52 @@ public class WalletService(ICustomerRepository customerRepository, ITransactionR
     public async Task<TransactionOutDto> RecordTransactionAsync(Guid customerId, TransactionInputDto transactionInput)
     {
         // diversão começa aqui
-        if (transactionInput.TransactionType == TransactionType.BUY)
+        var customer = await customerRepository.GetCustomerAsync(customerId);
+        if (customer is null)
+            throw new NotFoundException($"Cliente de id '{customerId}' não encontrado");
+        
+        switch (transactionInput.TransactionType)
         {
-            var customer = await customerRepository.GetCustomerAsync(customerId);
-            if (customer is null)
-                throw new NotFoundException($"Cliente de id '{customerId}' não encontrado");
-            
-            customer.AddAsset(new Asset(
-                transactionInput.Ticker,
-                transactionInput.Quantity,
-                transactionInput.UnitPrice
+            case TransactionType.BUY:
+            {
+                customer.AddAsset(new Asset(
+                    transactionInput.Ticker,
+                    transactionInput.Quantity,
+                    transactionInput.UnitPrice
                 ));
             
-            var transaction = new Transaction(
-                customerId,
-                transactionInput.TransactionType,
-                transactionInput.Quantity,
-                transactionInput.UnitPrice,
-                transactionInput.Ticker);
-            // por algum motivo o CustomerId da transaction está zerado 000000-00000... corrija
-            await customerRepository.UpdateCustomerAsync(customer);
-            await transactionRepository.AddTransactionAsync(transaction);
+                var transaction = new Transaction(
+                    customerId,
+                    transactionInput.TransactionType,
+                    transactionInput.Quantity,
+                    transactionInput.UnitPrice,
+                    transactionInput.Ticker);
+                
+                await customerRepository.UpdateCustomerAsync(customer);
+                await transactionRepository.AddTransactionAsync(transaction);
             
-            return MapToTransactionOutDto(transaction);
-        }
-        else
-        {
-            throw new NotImplementedException();   
+                return MapToTransactionOutDto(transaction);
+            }
+            case TransactionType.SELL:
+            {
+                customer.SellAsset(transactionInput.Ticker, transactionInput.Quantity);
+
+                var transaction = new Transaction(
+                    customerId,
+                    transactionInput.TransactionType,
+                    transactionInput.Quantity,
+                    transactionInput.UnitPrice,
+                    transactionInput.Ticker
+                    );
+
+                await customerRepository.UpdateCustomerAsync(customer);
+                await transactionRepository.AddTransactionAsync(transaction);
+                
+                return MapToTransactionOutDto(transaction);
+            }
+            
+            default:
+                throw new ArgumentOutOfRangeException();
         }
     }
 

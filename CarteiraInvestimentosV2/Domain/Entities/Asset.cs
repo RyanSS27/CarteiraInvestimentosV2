@@ -28,7 +28,7 @@ public partial class Asset
             throw new ArgumentException("A quantidade de cotas deve ser maior que zero.");
 
         if (averagePrice <= 0)
-            throw new ArgumentException("O preço médio de compra deve ser maior que zero.");
+            throw new ArgumentException("O preço médio deve ser maior que zero.");
 
         
         Ticker = ticker.Trim().ToUpper();

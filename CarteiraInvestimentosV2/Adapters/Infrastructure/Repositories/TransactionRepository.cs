@@ -26,6 +26,10 @@ public class TransactionRepository : ITransactionRepository
     // a ideia é, futuramente listar as transações de um cliente para exibir no front, por exemplo
     public async Task<List<Transaction>> ListTransactionsAsync(Guid customerId, int limit)
     {
-        throw new NotImplementedException();
+        return await _transactionCollection
+            .Find(t => t.CustomerId == customerId)
+            .SortByDescending(t => t.TransactionDate)
+            .Limit(limit)
+            .ToListAsync();
     }
 }

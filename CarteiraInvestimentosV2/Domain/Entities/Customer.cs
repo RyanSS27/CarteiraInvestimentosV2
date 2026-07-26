@@ -15,7 +15,8 @@ public class Customer
     private List<Asset> _assets = []; // sem permissão a se alterar a lista original
     
     public IReadOnlyCollection<Asset> Assets => _assets.AsReadOnly(); // lista inalterável pública
-
+    
+    public Customer() {}
     public Customer(string name, string email)
     {
         Name = name;
@@ -23,9 +24,6 @@ public class Customer
     }
     public void AddAsset(Asset asset)
     {
-        if (_assets is null)
-            _assets = [];
-        
         var existingAsset = _assets.Find(a => a.Ticker == asset.Ticker);
         if (existingAsset is null)
         {
@@ -35,10 +33,17 @@ public class Customer
         existingAsset.RegisterBuy(asset.Quantity, asset.AveragePrice);
     }
 
-    public void SellAsset(Asset asset)
+    public void SellAsset(string ticker, int quantity)
     {
-        var teste = _assets.Find(a => a.Ticker == asset.Ticker);
+        if (_assets is [])
+            throw new DomainException("Sim, de novo...");
+        var existingAsset = _assets.Find(a => a.Ticker == ticker);
+        if (existingAsset is null)
+            throw new DomainException($"Não há ativo de ticker '{ticker}' em disponível.");
         
+        existingAsset.RegisterSell(quantity);
+        if (existingAsset.Quantity == 0)
+            _assets.Remove(existingAsset);
     }
 
     public void InactivateAccount()
