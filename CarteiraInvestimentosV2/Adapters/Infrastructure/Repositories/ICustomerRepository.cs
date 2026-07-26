@@ -11,5 +11,5 @@ public interface ICustomerRepository
 
     // Funções utilizadas apenas para testes:
     public Task<List<CustomerSummary>> ListCustomerSummariesAsync();
-    public Task<bool> DeleteCustomerAsync(Guid customerID);
+    public Task<bool> DeleteCustomerAsync(Guid customerId);
 }

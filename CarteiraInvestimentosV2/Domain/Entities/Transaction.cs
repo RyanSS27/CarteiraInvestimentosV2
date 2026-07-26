@@ -30,7 +30,8 @@ public partial class Transaction
         
         if (string.IsNullOrWhiteSpace(ticker) || !MyRegex().IsMatch(ticker))
             throw new ArgumentException("O Ticker informado é inválido. Padrão esperado: 4 letras seguidas de 1 ou 2 números.");
-        
+
+        CustomerId = customerId;
         TransactionType = transactionType;
         Quantity = quantity;
         UnitPrice = unitPrice;

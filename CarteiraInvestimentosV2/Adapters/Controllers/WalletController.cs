@@ -10,10 +10,10 @@ public class WalletController(IWalletService walletService) : ControllerBase
 {
     private readonly IWalletService _walletService = walletService;
 
-    [HttpPost("{id:guid}")]
-    public async Task<IActionResult> RecordTransaction(Guid id, TransactionInputDto transactionInput)
+    [HttpPost("{customerId:guid}")]
+    public async Task<IActionResult> RecordTransaction(Guid customerId, TransactionInputDto transactionInput)
     {
-        var transaction = await _walletService.RecordTransactionAsync(id, transactionInput);
+        var transaction = await _walletService.RecordTransactionAsync(customerId, transactionInput);
         return Ok(transaction);
     }
 }

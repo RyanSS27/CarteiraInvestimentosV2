@@ -1,22 +1,31 @@
 using System.ComponentModel.DataAnnotations;
+using CarteiraInvestimentosV2.Domain.Exceptions;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
 namespace CarteiraInvestimentosV2.Domain.Entities;
 
-public class Customer(string name, string email)
+public class Customer
 {
     public Guid Id { get; private set; } = Guid.NewGuid();
-    public string Name { get; set; } = name;
-    public string? Email { get; set; } = email;
+    public string Name { get; set; }
+    public string? Email { get; set; }
     public bool IsActive { get; private set; } = true;
 
-    private readonly List<Domain.Entities.Asset> _assets = new(); // sem permissão a se alterar a lista original
+    private List<Asset> _assets = []; // sem permissão a se alterar a lista original
     
-    public IReadOnlyCollection<Domain.Entities.Asset> Assets => _assets.AsReadOnly(); // lista inalterável pública
+    public IReadOnlyCollection<Asset> Assets => _assets.AsReadOnly(); // lista inalterável pública
 
-    public void AddAsset(Domain.Entities.Asset asset)
+    public Customer(string name, string email)
     {
+        Name = name;
+        Email = email;
+    }
+    public void AddAsset(Asset asset)
+    {
+        if (_assets is null)
+            _assets = [];
+        
         var existingAsset = _assets.Find(a => a.Ticker == asset.Ticker);
         if (existingAsset is null)
         {
@@ -26,7 +35,7 @@ public class Customer(string name, string email)
         existingAsset.RegisterBuy(asset.Quantity, asset.AveragePrice);
     }
 
-    public void SellAsset(Domain.Entities.Asset asset)
+    public void SellAsset(Asset asset)
     {
         var teste = _assets.Find(a => a.Ticker == asset.Ticker);
         

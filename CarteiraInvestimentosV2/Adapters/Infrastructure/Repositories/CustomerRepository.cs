@@ -1,4 +1,3 @@
-using CarteiraInvestimentosV2.Database;
 using CarteiraInvestimentosV2.Domain.Entities;
 using CarteiraInvestimentosV2.Entities;
 using MongoDB.Driver;
@@ -7,7 +6,7 @@ namespace CarteiraInvestimentosV2.Adapters.Infrastructure.Repositories;
 
 public class CustomerRepository : ICustomerRepository
 {
-    public readonly IMongoCollection<Customer> _customersCollection;
+    private readonly IMongoCollection<Customer> _customersCollection;
 
     public CustomerRepository(IMongoClient mongoClient, IConfiguration configuration)
     {
@@ -43,9 +42,9 @@ public class CustomerRepository : ICustomerRepository
         await _customersCollection.ReplaceOneAsync(c => c.Id == customer.Id, customer);
     }
 
-    public async Task<bool> DeleteCustomerAsync(Guid customerID)
+    public async Task<bool> DeleteCustomerAsync(Guid customerId)
     {
-        var result = await _customersCollection.DeleteOneAsync(c => c.Id == customerID);
+        var result = await _customersCollection.DeleteOneAsync(c => c.Id == customerId);
         return result.DeletedCount > 0;
     }
 }

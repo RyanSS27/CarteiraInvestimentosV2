@@ -19,6 +19,7 @@ BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.Standard
 BsonClassMap.RegisterClassMap<Customer>(map =>
 {
     map.AutoMap();
+    //map.SetIgnoreExtraElements(true); // Adicione esta linha para flexibilizar a leitura
     map.MapIdMember(c => c.Id);
 });
 
