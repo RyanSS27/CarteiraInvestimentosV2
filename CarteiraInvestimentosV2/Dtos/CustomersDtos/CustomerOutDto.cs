@@ -1,6 +1,6 @@
-using CarteiraInvestimentosV2.Entities;
+using CarteiraInvestimentosV2.Domain.Entities;
 
-namespace CarteiraInvestimentosV2.Dtos;
+namespace CarteiraInvestimentosV2.Dtos.CustomersDtos;
 
 public record CustomerOutDto
 {
@@ -8,17 +8,10 @@ public record CustomerOutDto
     public string Name { get; set; }
     public string Email { get; set; }
     
-    // adicionar a lista de ativos depois
-    
-    public List<Transaction> Transactions { get; private set; }
-
-    public CustomerOutDto() {}
-    
     public CustomerOutDto(Customer customer)
     {
             Id = customer.Id;
             Name = customer.Name;
             Email = customer.Email;
-        
     }
 }

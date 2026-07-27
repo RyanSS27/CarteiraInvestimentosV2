@@ -1,6 +1,7 @@
 using CarteiraInvestimentosV2.Dtos;
+using CarteiraInvestimentosV2.Dtos.CustomersDtos;
 
-namespace CarteiraInvestimentosV2.Services;
+namespace CarteiraInvestimentosV2.Domain.Services.Ports;
 
 public interface ICustomerService
 {

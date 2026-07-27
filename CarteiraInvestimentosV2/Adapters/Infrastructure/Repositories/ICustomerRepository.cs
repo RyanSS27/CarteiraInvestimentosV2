@@ -1,7 +1,7 @@
-using CarteiraInvestimentosV2.Dtos;
+using CarteiraInvestimentosV2.Domain.Entities;
 using CarteiraInvestimentosV2.Entities;
 
-namespace CarteiraInvestimentosV2.Database;
+namespace CarteiraInvestimentosV2.Adapters.Infrastructure.Repositories;
 
 public interface ICustomerRepository
 {
@@ -11,5 +11,5 @@ public interface ICustomerRepository
 
     // Funções utilizadas apenas para testes:
     public Task<List<CustomerSummary>> ListCustomerSummariesAsync();
-    public Task<bool> DeleteCustomerAsync(Guid customerID);
+    public Task<bool> DeleteCustomerAsync(Guid customerId);
 }
