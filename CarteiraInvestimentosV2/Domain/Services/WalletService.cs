@@ -3,6 +3,7 @@ using CarteiraInvestimentosV2.Database;
 using CarteiraInvestimentosV2.Domain.Entities;
 using CarteiraInvestimentosV2.Domain.Exceptions;
 using CarteiraInvestimentosV2.Domain.Services.Ports;
+using CarteiraInvestimentosV2.Dtos;
 using CarteiraInvestimentosV2.Entities.Enums;
 using Asset = CarteiraInvestimentosV2.Domain.Entities.Asset;
 
@@ -12,6 +13,51 @@ public class WalletService(ICustomerRepository customerRepository, ITransactionR
     : IWalletService
 {
     private const int LimitPerRequest = 25;
+
+    public async Task<List<AssetOutDto>> GetWalletSummary(Guid customerId)
+    {
+        var customer = await customerRepository.GetCustomerAsync(customerId);
+        if (customer is null)
+            throw new NotFoundException($"Cliente de id '{customerId}' não encontrado");
+
+        if (customer.Assets.Count <= 0)
+            throw new DomainException($"Cliente {customer.Name} de id {customerId} não possui investimentos em ativos no momento."); // odiei essa frase kkkkkkkkk
+
+        List<AssetOutDto> assetsOut = [];
+        
+        foreach (var asset in customer.Assets)
+        {
+            decimal currentMarketPrice; // guardaria o valor atual do ativo no mercado 
+            decimal totalCurrentValue; // currentMarketPrice x asset.Quantity
+            decimal profitOrLoss; // totalCurrentValue - asset.CurrentAmountInvested
+            decimal returnPercentage; //  ( profitOrLoss * 100 ) / asset.CurrentAmountInvested   
+            bool isPriceUpToDate;
+            try
+            {
+                // aqui vem a conexão com o FinancialMarketService (conexão com a Brapi)
+                throw new NotImplementedException();
+            }
+            catch
+            {
+                currentMarketPrice = asset.AveragePrice;
+                totalCurrentValue = asset.CurrentAmountInvested;
+                profitOrLoss = 0;
+                returnPercentage = 0;
+                isPriceUpToDate = false;
+                
+                assetsOut.Add(MapToOutDto(
+                    asset,
+                    currentMarketPrice,
+                    totalCurrentValue,
+                    returnPercentage,
+                    profitOrLoss,
+                    isPriceUpToDate
+                    ));
+            }
+        }
+
+        return assetsOut;
+    }
 
     public async Task<List<TransactionOutDto>> ListCustomerTransactionAsync(Guid customerId, int limit)
     {
@@ -80,6 +126,8 @@ public class WalletService(ICustomerRepository customerRepository, ITransactionR
         }
     }
 
+    // Listar ativos
+
 
     // Converte transaction → transactionOutDto 
     private static TransactionOutDto MapToTransactionOutDto(Transaction transaction)
@@ -93,6 +141,28 @@ public class WalletService(ICustomerRepository customerRepository, ITransactionR
             transaction.UnitPrice,
             transaction.Ticker
         );
+    }
+
+    private static AssetOutDto MapToOutDto(
+        Asset asset,
+        decimal currentMarketPrice, 
+        decimal totalCurrentValue,
+        decimal returnPercentage,
+        decimal profitOrLoss,
+        bool isPriceUpToDate
+    )
+    {
+        return new AssetOutDto(
+            asset.Ticker,
+            asset.Quantity,
+            asset.AveragePrice,
+            asset.CurrentAmountInvested,
+            currentMarketPrice,
+            totalCurrentValue,
+            returnPercentage, 
+            profitOrLoss, 
+            isPriceUpToDate
+            );
     }
 }
 
