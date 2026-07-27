@@ -14,7 +14,7 @@ public class WalletService(ICustomerRepository customerRepository, ITransactionR
 {
     private const int LimitPerRequest = 25;
 
-    public async Task<List<AssetOutDto>> GetWalletSummary(Guid customerId)
+    public async Task<WalletOutDto> GetWalletSummary(Guid customerId)
     {
         var customer = await customerRepository.GetCustomerAsync(customerId);
         if (customer is null)
@@ -23,6 +23,10 @@ public class WalletService(ICustomerRepository customerRepository, ITransactionR
         if (customer.Assets.Count <= 0)
             throw new DomainException($"Cliente {customer.Name} de id {customerId} não possui investimentos em ativos no momento."); // odiei essa frase kkkkkkkkk
 
+        decimal totalValue = 0;
+        decimal totalValueUpToDate = 0;
+        decimal totalValueEstimated = 0;
+         
         List<AssetOutDto> assetsOut = [];
         
         foreach (var asset in customer.Assets)
@@ -36,6 +40,7 @@ public class WalletService(ICustomerRepository customerRepository, ITransactionR
             {
                 // aqui vem a conexão com o FinancialMarketService (conexão com a Brapi)
                 throw new NotImplementedException();
+                totalValueEstimated += totalCurrentValue; // nunca vai chegar aqui, pois ainda não implementei
             }
             catch
             {
@@ -45,18 +50,26 @@ public class WalletService(ICustomerRepository customerRepository, ITransactionR
                 returnPercentage = 0;
                 isPriceUpToDate = false;
                 
-                assetsOut.Add(MapToOutDto(
-                    asset,
-                    currentMarketPrice,
-                    totalCurrentValue,
-                    returnPercentage,
-                    profitOrLoss,
-                    isPriceUpToDate
-                    ));
+                totalValueEstimated += totalCurrentValue;
             }
+            assetsOut.Add(MapToOutDto(
+                asset,
+                currentMarketPrice,
+                totalCurrentValue,
+                returnPercentage,
+                profitOrLoss,
+                isPriceUpToDate
+            ));
+            
+            totalValue += totalCurrentValue;
         }
 
-        return assetsOut;
+        return new WalletOutDto(
+            totalValue,
+            totalValueUpToDate,
+            totalValueEstimated,
+            DateTime.UtcNow,
+            assetsOut);
     }
 
     public async Task<List<TransactionOutDto>> ListCustomerTransactionAsync(Guid customerId, int limit)
