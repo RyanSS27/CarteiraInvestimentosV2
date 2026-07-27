@@ -47,10 +47,10 @@ A aplicação segue os princípios de **Ports and Adapters (Arquitetura Hexagona
 - [x] Estrutura inicial do projeto
 - [x] Configuração do MongoDB
 - [x] Modelagem das entidades
-- [ ] CRUD de clientes
+- [x] CRUD de clientes
+- [x] Registro e listagem de transações
 - [ ] Gerenciamento de ativos
-- [ ] Registro de transações
-- [ ] Consolidação da carteira
+- [ ] Correções e testes
 - [ ] Integração com a Brapi
 - [ ] FluentValidation
 - [ ] Flurl
