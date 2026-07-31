@@ -1,3 +1,4 @@
+using CarteiraInvestimentosV2.Adapters.Infrastructure.ExternalServices;
 using CarteiraInvestimentosV2.Adapters.Infrastructure.Repositories;
 using CarteiraInvestimentosV2.Database;
 using CarteiraInvestimentosV2.Domain.Entities;
@@ -31,39 +32,53 @@ public class WalletService(ICustomerRepository customerRepository, ITransactionR
         
         foreach (var asset in customer.Assets)
         {
-            decimal currentMarketPrice; // guardaria o valor atual do ativo no mercado 
-            decimal totalCurrentValue; // currentMarketPrice x asset.Quantity
-            decimal profitOrLoss; // totalCurrentValue - asset.CurrentAmountInvested
-            decimal returnPercentage; //  ( profitOrLoss * 100 ) / asset.CurrentAmountInvested   
-            bool isPriceUpToDate;
+            decimal currentMarketPrice = asset.AveragePrice; 
+            bool isPriceUpToDate = false;
+            
             try
             {
-                // aqui vem a conexão com o FinancialMarketService (conexão com a Brapi)
                 throw new NotImplementedException();
-                totalValueEstimated += totalCurrentValue; // nunca vai chegar aqui, pois ainda não implementei
+                isPriceUpToDate = true;
             }
             catch
             {
-                currentMarketPrice = asset.AveragePrice;
-                totalCurrentValue = asset.CurrentAmountInvested;
-                profitOrLoss = 0;
-                returnPercentage = 0;
-                isPriceUpToDate = false;
-                
-                totalValueEstimated += totalCurrentValue;
+                // ignored
             }
-            assetsOut.Add(MapToOutDto(
-                asset,
+            
+            /*
+                Nota pessoal: recebe o valor total atualizado com os valores da Brapi.
+                Caso não receba, acaba recebendo o valor que total investido pelo cliente,
+                visto que o próprio asset faz o mesmo cálculo internamente
+                CurrentAmountInvested = quantity * average price (que está como padrão em currentMarketPrice) 
+            */
+            decimal totalCurrentValue = asset.Quantity * currentMarketPrice; 
+            
+            decimal profitOrLoss = totalCurrentValue - asset.CurrentAmountInvested;
+            
+            decimal returnPercentage = asset.AveragePrice > 0 ? 
+                ((currentMarketPrice / asset.AveragePrice) - 1) * 100 
+                : 0;
+
+            assetsOut.Add(new AssetOutDto(
+                asset.Ticker,
+                asset.Quantity,
+                asset.AveragePrice,
+                asset.CurrentAmountInvested,
                 currentMarketPrice,
                 totalCurrentValue,
-                returnPercentage,
-                profitOrLoss,
+                Math.Round(returnPercentage, 2),
+                Math.Round(profitOrLoss, 2),
                 isPriceUpToDate
             ));
             
             totalValue += totalCurrentValue;
+            
+            if (isPriceUpToDate)
+                totalValueUpToDate += totalCurrentValue;
+            else
+                totalValueEstimated += totalCurrentValue;
         }
-
+        
         return new WalletOutDto(
             totalValue,
             totalValueUpToDate,
