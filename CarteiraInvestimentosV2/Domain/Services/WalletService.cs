@@ -10,7 +10,10 @@ using Asset = CarteiraInvestimentosV2.Domain.Entities.Asset;
 
 namespace CarteiraInvestimentosV2.Domain.Services;
 
-public class WalletService(ICustomerRepository customerRepository, ITransactionRepository transactionRepository)
+public class WalletService(
+    ICustomerRepository customerRepository,
+    ITransactionRepository transactionRepository, 
+    IFinancialMarketService financialMarketService)
     : IWalletService
 {
     private const int LimitPerRequest = 25;
@@ -24,41 +27,34 @@ public class WalletService(ICustomerRepository customerRepository, ITransactionR
         if (customer.Assets.Count <= 0)
             throw new DomainException($"Cliente {customer.Name} de id {customerId} não possui investimentos em ativos no momento."); // odiei essa frase kkkkkkkkk
 
+        var marketPrices = await financialMarketService.GetPriceAsync(
+            customer.Assets.Select(x => x.Ticker).Distinct().ToList() // lista de tickers
+            );
+        
         decimal totalValue = 0;
         decimal totalValueUpToDate = 0;
         decimal totalValueEstimated = 0;
-         
+
         List<AssetOutDto> assetsOut = [];
+
         
         foreach (var asset in customer.Assets)
         {
-            decimal currentMarketPrice = asset.AveragePrice; 
-            bool isPriceUpToDate = false;
+            // Tenta buscar o Ticker no dicionário e retorna o booleano para apontar se achou.
+            // Declara implicitamente se a variável currentMarketPrice que receberia o valor correspondente
+            bool isPriceUpToDate = marketPrices.TryGetValue(asset.Ticker, out decimal currentMarketPrice);
+            if (!isPriceUpToDate)
+                currentMarketPrice = asset.AveragePrice;
             
-            try
-            {
-                throw new NotImplementedException();
-                isPriceUpToDate = true;
-            }
-            catch
-            {
-                // ignored
-            }
             
-            /*
-                Nota pessoal: recebe o valor total atualizado com os valores da Brapi.
-                Caso não receba, acaba recebendo o valor que total investido pelo cliente,
-                visto que o próprio asset faz o mesmo cálculo internamente
-                CurrentAmountInvested = quantity * average price (que está como padrão em currentMarketPrice) 
-            */
-            decimal totalCurrentValue = asset.Quantity * currentMarketPrice; 
-            
+            decimal totalCurrentValue = asset.Quantity * currentMarketPrice;
             decimal profitOrLoss = totalCurrentValue - asset.CurrentAmountInvested;
-            
-            decimal returnPercentage = asset.AveragePrice > 0 ? 
-                ((currentMarketPrice / asset.AveragePrice) - 1) * 100 
+        
+            decimal returnPercentage = asset.AveragePrice > 0 
+                ? ((currentMarketPrice / asset.AveragePrice) - 1) * 100 
                 : 0;
 
+            
             assetsOut.Add(new AssetOutDto(
                 asset.Ticker,
                 asset.Quantity,
@@ -72,7 +68,7 @@ public class WalletService(ICustomerRepository customerRepository, ITransactionR
             ));
             
             totalValue += totalCurrentValue;
-            
+
             if (isPriceUpToDate)
                 totalValueUpToDate += totalCurrentValue;
             else
@@ -84,7 +80,8 @@ public class WalletService(ICustomerRepository customerRepository, ITransactionR
             totalValueUpToDate,
             totalValueEstimated,
             DateTime.UtcNow,
-            assetsOut);
+            assetsOut
+        );
     }
 
     public async Task<List<TransactionOutDto>> ListCustomerTransactionAsync(Guid customerId, int limit)
@@ -153,9 +150,6 @@ public class WalletService(ICustomerRepository customerRepository, ITransactionR
                 throw new ArgumentOutOfRangeException();
         }
     }
-
-    // Listar ativos
-
 
     // Converte transaction → transactionOutDto 
     private static TransactionOutDto MapToTransactionOutDto(Transaction transaction)

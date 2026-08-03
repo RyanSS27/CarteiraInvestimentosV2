@@ -1,4 +1,5 @@
 using CarteiraInvestimentosV2.Adapters;
+using CarteiraInvestimentosV2.Adapters.Infrastructure.ExternalServices;
 using CarteiraInvestimentosV2.Adapters.Infrastructure.Repositories;
 using CarteiraInvestimentosV2.Database;
 using CarteiraInvestimentosV2.Domain.Entities;
@@ -43,6 +44,7 @@ builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
 builder.Services.AddScoped<ICustomerService, CustomerService>();
 builder.Services.AddScoped<IWalletService, WalletService>();
+builder.Services.AddScoped<IFinancialMarketService, BrapiService>();
 
 
 
