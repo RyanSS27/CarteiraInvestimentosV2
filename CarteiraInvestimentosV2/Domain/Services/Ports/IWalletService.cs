@@ -9,5 +9,5 @@ public interface IWalletService
     Task<TransactionOutDto> RecordTransactionAsync(Guid customerId, TransactionInputDto transactionInput);
 
     // listar assets 
-    Task<List<AssetOutDto>> GetWalletSummary(Guid customerId);
+    Task<WalletOutDto> GetWalletSummary(Guid customerId);
 }

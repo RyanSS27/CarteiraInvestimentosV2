@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
+using CarteiraInvestimentosV2.Entities.Enums;
 
-namespace CarteiraInvestimentosV2.Entities.Enums;
+namespace CarteiraInvestimentosV2.Dtos;
 
 public record TransactionInputDto(
     [Required(ErrorMessage = "O Ticker é obrigatório.")]
