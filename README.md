@@ -50,10 +50,11 @@ A aplicação segue os princípios de **Ports and Adapters (Arquitetura Hexagona
 - [x] CRUD de clientes
 - [x] Registro e listagem de transações
 - [x] Gerenciamento de ativos
-- [ ] Correções, consolidação da carteira e testes
-- [ ] Integração com a Brapi
-- [ ] FluentValidation
-- [ ] Flurl
+- [x] Correções, consolidação da carteira e testes
+- [x] Integração com a Brapi
+- [x] Flurl
+- [ ] Padronização do fluxo de clientes e tratamento de erros
+- [ ] Otimizações e correções
 
 ---
 
