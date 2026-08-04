@@ -204,33 +204,55 @@ Retorna o histórico de operações do cliente, limitado pela quantidade informa
 /api/wallet/{customerId}/summary
 ```
 
-A consulta consolida as informações dos ativos e, quando disponível, utiliza a cotação atual obtida através da Brapi.
+A consulta consolida as informações dos ativos e, quando disponível, utiliza a cotação atual obtida através da Brapi somadas no atributo `totalValueUpToDate`. 
+
+Quando não há correspondência no mercado ao Ticker informado ou haja queda nos serviços externos, os dados referentes ao lucro dos ativos serão zerados pois o preço médio pago pelas ações passa a ser tomado como referência para os cálculos, sendo somados separadamente no atributo `totalValueEstimated`.
 
 Exemplo simplificado:
 
 ```json
 {
-  "ownerName": "Ryan Souza",
-  "totalValue": 942.72,
-  "totalValueUpToDate": 162.72,
-  "totalValueEstimated": 780.00,
-  "assets": [
+  "totalValue": 1407.44,
+  "totalValueUpToDate": 1207.44,
+  "totalValueEstimated": 200,
+  "calculationDate": "2026-08-04T12:53:48.7100279Z",
+  "assetsOut": [
+    {
+      "ticker": "ITUB4",
+      "currentQuantity": 17,
+      "averagePrice": 21.47,
+      "currentAmountInvested": 364.99,
+      "currentMarketPrice": 43.17,
+      "totalCurrentValue": 733.89,
+      "returnPercentage": 101.07,
+      "profitOrLoss": 368.90,
+      "isPriceUpToDate": true
+    },
     {
       "ticker": "PETR4",
-      "currentQuantity": 4,
-      "averagePrice": 30.00,
-      "currentMarketPrice": 40.68,
-      "totalInvestedValue": 120.00,
-      "totalCurrentValue": 162.72,
-      "returnPercentage": 35.60,
-      "profitOrLoss": 42.72,
+      "currentQuantity": 11,
+      "averagePrice": 22,
+      "currentAmountInvested": 242,
+      "currentMarketPrice": 43.05,
+      "totalCurrentValue": 473.55,
+      "returnPercentage": 95.68,
+      "profitOrLoss": 231.55,
       "isPriceUpToDate": true
+    },
+    {
+      "ticker": "TEST1",
+      "currentQuantity": 10,
+      "averagePrice": 20,
+      "currentAmountInvested": 200,
+      "currentMarketPrice": 20,
+      "totalCurrentValue": 200,
+      "returnPercentage": 0,
+      "profitOrLoss": 0,
+      "isPriceUpToDate": false
     }
   ]
 }
 ```
-
-A organização segue o princípio de Ports and Adapters, mantendo as regras de negócio no domínio e isolando detalhes de infraestrutura, como MongoDB e serviços externos.
 
 ---
 
