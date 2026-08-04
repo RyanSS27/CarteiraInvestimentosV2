@@ -9,11 +9,9 @@
   <img src="https://img.shields.io/badge/Architecture-Hexagonal-orange" alt="Hexagonal Architecture">
 </p>
 
-API REST desenvolvida em **.NET 10** para gerenciamento e consolidação de uma carteira de investimentos em ativos de renda variável listados na bolsa de valores brasileira (B3).
+API REST desenvolvida em .NET 10 para gerenciamento de carteiras de investimentos em ativos negociados na B3, afim de consolidar boas práticas de arquitetura e integração com servições externos.
 
-A aplicação permite cadastrar clientes, registrar operações de compra e venda, consultar o histórico de transações e consolidar a posição da carteira, utilizando cotações do mercado financeiro obtidas através de integração com a API da **Brapi**.
-
-O projeto utiliza **MongoDB** como banco de dados e segue os princípios de **Ports and Adapters (Arquitetura Hexagonal)**, mantendo o domínio independente de frameworks e tecnologias de infraestrutura.
+A aplicação permite cadastrar clientes, registrar operações de compra e venda, consultar o histórico de transações e consolidar automaticamente a carteira utilizando cotações obtidas pela Brapi. O projeto utiliza MongoDB e segue a Arquitetura Hexagonal (Ports and Adapters), mantendo o domínio desacoplado da infraestrutura.
 
 ---
 
@@ -41,6 +39,7 @@ O projeto utiliza **MongoDB** como banco de dados e segue os princípios de **Po
 
 - Ports and Adapters (Arquitetura Hexagonal)
 - Domain-Driven Design
+- Princípios SOLID
 - Injeção de Dependência
 - Repository Pattern
 - DTOs
@@ -50,7 +49,7 @@ O projeto utiliza **MongoDB** como banco de dados e segue os princípios de **Po
 ---
 
 ## 🏗️ Estrutura do Projeto
-A estrutura abaixo organiza a aplicação separando as responsabilidades, isolando o núcleo de negócios das ferramentas de tecnologia.
+A estrutura abaixo organiza a aplicação separando as responsabilidades afim de baixo acoplamento, isolando o núcleo de negócios (domínio) das ferramentas de tecnologia (infraestrutura).
 ```text
 📁 CarteiraInvestimentosAPI/
 ├── 📁 Adapters/
@@ -184,8 +183,8 @@ A API possui documentação interativa através do **Scalar** e pode ser testada
 
 Os tipos de operação disponíveis são:
 
-- `BUY` — compra
-- `SELL` — venda
+- `BUY` (ou 0) — compra
+- `SELL` (ou 1) — venda
 
 ### 3. Consultar transações
 
@@ -250,9 +249,7 @@ A chave utilizada nas consultas é armazenada através do **User Secrets**, evit
 
 ## 🗄️ Persistência
 
-Os dados da aplicação são armazenados em **MongoDB**, utilizando o `MongoDB.Driver`.
-
-São utilizadas coleções independentes para:
+Os dados são persistidos em duas coleções utilizando o `MongoDB.Driver`:
 
 - `Customers`
 - `Transactions`
@@ -261,8 +258,8 @@ O banco é executado localmente através de um container Docker.
 
 ---
 
-## 📌 Status do projeto
+## 🏁 Conclusão
 
-O projeto encontra-se **funcional**, com as principais funcionalidades implementadas.
+Este projeto demonstra a implementação de uma API REST para gerenciamento de carteiras de investimentos utilizando **.NET 10**, **MongoDB** e **Arquitetura Hexagonal**.
 
-Algumas melhorias e padronizações de código ainda podem ser realizadas, mas a aplicação já contempla o fluxo principal de uma carteira de investimentos: cadastro de clientes, registro de operações, consolidação da posição e consulta de cotações.
+O código foi organizado priorizando separação de responsabilidades, baixo acoplamento e facilidade de manutenção, servindo como uma demonstração prática da aplicação desses conceitos em um projeto realista.
