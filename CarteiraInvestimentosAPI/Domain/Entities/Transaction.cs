@@ -1,5 +1,5 @@
 using System.Text.RegularExpressions;
-using CarteiraInvestimentosAPI.Entities.Enums;
+using CarteiraInvestimentosAPI.Domain.Entities.Enums;
 using CarteiraInvestimentosAPI.Domain.Exceptions;
 
 namespace CarteiraInvestimentosAPI.Domain.Entities;

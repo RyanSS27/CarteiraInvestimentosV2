@@ -1,4 +1,4 @@
-namespace CarteiraInvestimentosAPI.Entities.Enums;
+namespace CarteiraInvestimentosAPI.Domain.Entities.Enums;
 
 public enum TransactionType
 {

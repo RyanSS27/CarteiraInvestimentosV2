@@ -1,5 +1,5 @@
 using System.ComponentModel.DataAnnotations;
-using CarteiraInvestimentosAPI.Entities.Enums;
+using CarteiraInvestimentosAPI.Domain.Entities.Enums;
 
 namespace CarteiraInvestimentosAPI.Dtos;
 

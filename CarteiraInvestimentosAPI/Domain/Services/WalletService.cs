@@ -2,10 +2,10 @@ using CarteiraInvestimentosAPI.Adapters.Infrastructure.ExternalServices;
 using CarteiraInvestimentosAPI.Adapters.Infrastructure.Repositories;
 using CarteiraInvestimentosAPI.Database;
 using CarteiraInvestimentosAPI.Domain.Entities;
+using CarteiraInvestimentosAPI.Domain.Entities.Enums;
 using CarteiraInvestimentosAPI.Domain.Exceptions;
 using CarteiraInvestimentosAPI.Domain.Services.Ports;
 using CarteiraInvestimentosAPI.Dtos;
-using CarteiraInvestimentosAPI.Entities.Enums;
 using Asset = CarteiraInvestimentosAPI.Domain.Entities.Asset;
 using Entities_Asset = CarteiraInvestimentosAPI.Domain.Entities.Asset;
 

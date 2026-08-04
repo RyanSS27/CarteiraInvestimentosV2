@@ -15,46 +15,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6ab3074e-6c6a-42b6-8141-de7aef6b88f5" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.CarteiraInvestimentosV2/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.CarteiraInvestimentosV2/.idea/dictionaries/project.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.CarteiraInvestimentosV2/.idea/encodings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.CarteiraInvestimentosV2/.idea/indexLayout.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.CarteiraInvestimentosV2/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CarteiraInvestimentosV2.sln" beforeDir="false" afterPath="$PROJECT_DIR$/CarteiraInvestimentosAPI.sln" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CarteiraInvestimentosV2/Adapters/Controllers/CustomerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CarteiraInvestimentosAPI/Adapters/Controllers/CustomerController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CarteiraInvestimentosV2/Adapters/Controllers/WalletController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CarteiraInvestimentosAPI/Adapters/Controllers/WalletController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CarteiraInvestimentosV2/Adapters/GlobalExceptionHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CarteiraInvestimentosAPI/Adapters/GlobalExceptionHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CarteiraInvestimentosV2/Adapters/Infrastructure/ExternalServices/BrapiService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CarteiraInvestimentosAPI/Adapters/Infrastructure/ExternalServices/BrapiService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CarteiraInvestimentosV2/Adapters/Infrastructure/ExternalServices/IFinancialMarketService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CarteiraInvestimentosAPI/Adapters/Infrastructure/ExternalServices/IFinancialMarketService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CarteiraInvestimentosV2/Adapters/Infrastructure/Repositories/CustomerRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CarteiraInvestimentosAPI/Adapters/Infrastructure/Repositories/CustomerRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CarteiraInvestimentosV2/Adapters/Infrastructure/Repositories/ICustomerRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CarteiraInvestimentosAPI/Adapters/Infrastructure/Repositories/ICustomerRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CarteiraInvestimentosV2/Adapters/Infrastructure/Repositories/ITransactionRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CarteiraInvestimentosAPI/Adapters/Infrastructure/Repositories/ITransactionRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CarteiraInvestimentosV2/Adapters/Infrastructure/Repositories/TransactionRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CarteiraInvestimentosAPI/Adapters/Infrastructure/Repositories/TransactionRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CarteiraInvestimentosV2/CarteiraInvestimentosV2.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/CarteiraInvestimentosAPI/CarteiraInvestimentosAPI.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CarteiraInvestimentosV2/CarteiraInvestimentosV2.csproj.DotSettings" beforeDir="false" afterPath="$PROJECT_DIR$/CarteiraInvestimentosAPI/CarteiraInvestimentosAPI.csproj.DotSettings" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CarteiraInvestimentosV2/CarteiraInvestimentosV2.http" beforeDir="false" afterPath="$PROJECT_DIR$/CarteiraInvestimentosAPI/CarteiraInvestimentosAPI.http" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CarteiraInvestimentosV2/Domain/Entities/Asset.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CarteiraInvestimentosAPI/Domain/Entities/Asset.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CarteiraInvestimentosV2/Domain/Entities/Customer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CarteiraInvestimentosAPI/Domain/Entities/Customer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CarteiraInvestimentosV2/Domain/Entities/CustomerSummary.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CarteiraInvestimentosAPI/Domain/Entities/CustomerSummary.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CarteiraInvestimentosV2/Domain/Entities/Enums/TransactionType.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CarteiraInvestimentosAPI/Domain/Entities/Enums/TransactionType.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CarteiraInvestimentosV2/Domain/Entities/Transaction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CarteiraInvestimentosAPI/Domain/Entities/Transaction.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CarteiraInvestimentosV2/Domain/Exceptions/DomainException.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CarteiraInvestimentosAPI/Domain/Exceptions/DomainException.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CarteiraInvestimentosV2/Domain/Exceptions/NotFoundException.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CarteiraInvestimentosAPI/Domain/Exceptions/NotFoundException.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CarteiraInvestimentosV2/Domain/Services/CustomerService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CarteiraInvestimentosAPI/Domain/Services/CustomerService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CarteiraInvestimentosV2/Domain/Services/Ports/ICustomerService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CarteiraInvestimentosAPI/Domain/Services/Ports/ICustomerService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CarteiraInvestimentosV2/Domain/Services/Ports/IWalletService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CarteiraInvestimentosAPI/Domain/Services/Ports/IWalletService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CarteiraInvestimentosV2/Domain/Services/WalletService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CarteiraInvestimentosAPI/Domain/Services/WalletService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CarteiraInvestimentosV2/Dtos/CustomersDtos/CustomerInputDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CarteiraInvestimentosAPI/Dtos/CustomersDtos/CustomerInputDto.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CarteiraInvestimentosV2/Dtos/CustomersDtos/CustomerOutDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CarteiraInvestimentosAPI/Dtos/CustomersDtos/CustomerOutDto.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CarteiraInvestimentosV2/Dtos/CustomersDtos/CustomerOutResumeDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CarteiraInvestimentosAPI/Dtos/CustomersDtos/CustomerOutResumeDto.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CarteiraInvestimentosV2/Dtos/WalletDtos/AssetOutDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CarteiraInvestimentosAPI/Dtos/WalletDtos/AssetOutDto.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CarteiraInvestimentosV2/Dtos/WalletDtos/TransactionInputDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CarteiraInvestimentosAPI/Dtos/WalletDtos/TransactionInputDto.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CarteiraInvestimentosV2/Dtos/WalletDtos/TransactionOutDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CarteiraInvestimentosAPI/Dtos/WalletDtos/TransactionOutDto.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CarteiraInvestimentosV2/Dtos/WalletDtos/WalletOutDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CarteiraInvestimentosAPI/Dtos/WalletDtos/WalletOutDto.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CarteiraInvestimentosV2/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CarteiraInvestimentosAPI/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CarteiraInvestimentosV2/Properties/launchSettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/CarteiraInvestimentosAPI/Properties/launchSettings.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CarteiraInvestimentosV2/appsettings.Development.json" beforeDir="false" afterPath="$PROJECT_DIR$/CarteiraInvestimentosAPI/appsettings.Development.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CarteiraInvestimentosV2/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/CarteiraInvestimentosAPI/appsettings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarteiraInvestimentosAPI/Adapters/Controllers/WalletController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CarteiraInvestimentosAPI/Adapters/Controllers/WalletController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarteiraInvestimentosAPI/Adapters/Infrastructure/Repositories/ITransactionRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CarteiraInvestimentosAPI/Adapters/Infrastructure/Repositories/ITransactionRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarteiraInvestimentosAPI/Adapters/Infrastructure/Repositories/TransactionRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CarteiraInvestimentosAPI/Adapters/Infrastructure/Repositories/TransactionRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarteiraInvestimentosAPI/Domain/Entities/Enums/TransactionType.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CarteiraInvestimentosAPI/Domain/Entities/Enums/TransactionType.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarteiraInvestimentosAPI/Domain/Entities/Transaction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CarteiraInvestimentosAPI/Domain/Entities/Transaction.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarteiraInvestimentosAPI/Domain/Services/Ports/IWalletService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CarteiraInvestimentosAPI/Domain/Services/Ports/IWalletService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarteiraInvestimentosAPI/Domain/Services/WalletService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CarteiraInvestimentosAPI/Domain/Services/WalletService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarteiraInvestimentosAPI/Dtos/WalletDtos/TransactionInputDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CarteiraInvestimentosAPI/Dtos/WalletDtos/TransactionInputDto.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarteiraInvestimentosAPI/Dtos/WalletDtos/TransactionOutDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CarteiraInvestimentosAPI/Dtos/WalletDtos/TransactionOutDto.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarteiraInvestimentosAPI/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CarteiraInvestimentosAPI/Program.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
