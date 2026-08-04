@@ -1,0 +1,6 @@
+@CarteiraInvestimentosAPI_HostAddress = http://localhost:5004
+
+GET {{CarteiraInvestimentosAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
