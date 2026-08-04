@@ -1,8 +1,10 @@
+using System.Text.Json.Serialization;
 using CarteiraInvestimentosAPI.Adapters;
 using CarteiraInvestimentosAPI.Adapters.Infrastructure.ExternalServices;
 using CarteiraInvestimentosAPI.Adapters.Infrastructure.Repositories;
 using CarteiraInvestimentosAPI.Database;
 using CarteiraInvestimentosAPI.Domain.Entities;
+using CarteiraInvestimentosAPI.Domain.Entities.Enums;
 using CarteiraInvestimentosAPI.Domain.Services;
 using CarteiraInvestimentosAPI.Domain.Services.Ports;
 using MongoDB.Bson;
@@ -16,11 +18,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddOpenApi();
 
 BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.Standard));
+BsonSerializer.RegisterSerializer(new EnumSerializer<TransactionType>(BsonType.String));
 
 BsonClassMap.RegisterClassMap<Customer>(map =>
 {
     map.AutoMap();
-    //map.SetIgnoreExtraElements(true); 
     map.MapIdMember(c => c.Id);
     map.MapField("_assets").SetElementName("Assets");
 });
@@ -48,7 +50,11 @@ builder.Services.AddScoped<IFinancialMarketService, BrapiService>();
 
 
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+    });
 
 // Exceptions 
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();

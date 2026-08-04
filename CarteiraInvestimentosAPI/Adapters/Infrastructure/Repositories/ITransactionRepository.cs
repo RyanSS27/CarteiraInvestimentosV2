@@ -1,6 +1,5 @@
 using CarteiraInvestimentosAPI.Domain.Entities;
 using CarteiraInvestimentosAPI.Entities;
-using CarteiraInvestimentosAPI.Entities.Enums;
 
 namespace CarteiraInvestimentosAPI.Database;
 

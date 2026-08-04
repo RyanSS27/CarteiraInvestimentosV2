@@ -1,6 +1,5 @@
 using CarteiraInvestimentosAPI.Domain.Services.Ports;
 using CarteiraInvestimentosAPI.Dtos;
-using CarteiraInvestimentosAPI.Entities.Enums;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarteiraInvestimentosAPI.Adapters.Controllers;
